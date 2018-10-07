@@ -1,0 +1,9 @@
+# Exemple de fichier de configuration
+---
+vars:
+  desktop_manager: awesome
+  ide: vscode
+  browser: google-chrome
+  terminal: terminator
+  text_editor: vim
+  shell: oh-my-zsh
