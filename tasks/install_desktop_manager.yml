@@ -1,0 +1,9 @@
+---
+hosts: all
+include_vars: ../example_conf.yml
+tasks:
+  - name: install package
+    apt:
+      name: {{desktop_manager}}
+      state: present
+      update_cache: yes
