@@ -1,9 +1,45 @@
 ---
-hosts: all
-include_vars: ../example_conf.yml
+include_vars: "{{playbook_dir}}/../example_conf.yml"
 tasks:
+
+  # Si un fond d'écran est spécifié, on l'ajoute sur la machine host
+  - name: install wallpaper
+    file : 
+      src: "{{wallpaper}}"
+      dest: "/usr/share/images/wallpaper"
+      owner: root
+      group: root
+      mode : 0544
+    when: wallpaper
+
+  # Installation de Awesome
   - name: install package
+    # Installation du paquet
     apt:
-      name: {{desktop_manager}}
+      name: awesome
       state: present
       update_cache: yes
+
+    # On créé le dossier de configuration de awesome s'il n'existe pas
+    file:
+      path: "~{{user}}/.config/awesome/"
+      state: directory
+      mode: 0755
+
+    # On ajoute la configuration générale de Awesome
+    template:
+      src: "{{playbook_dir}}/../templates/rc.lua"
+      dest: "~{{user}}/.config/awesome/rc.lua"
+      owner: root
+      group: root
+      mode : 0544
+
+    # On ajoute la configuration du theme
+    template:
+      src: "{{playbook_dir}}/../templates/theme.lua"
+      dest: "/usr/share/awesome/themes/default/theme.lua"
+      owner: root
+      group: root
+      mode : 0544
+
+    when: "{{desktop_manager}}" == "awesome"

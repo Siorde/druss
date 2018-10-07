@@ -7,3 +7,5 @@ vars:
   terminal: terminator
   text_editor: vim
   shell: oh-my-zsh
+  wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
+  user: alpha
