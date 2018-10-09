@@ -1,11 +1,10 @@
 # Exemple de fichier de configuration
 ---
-vars:
-  desktop_manager: awesome
-  ide: vscode
-  browser: google-chrome
-  terminal: terminator
-  text_editor: vim
-  shell: oh-my-zsh
-  wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
-  user: alpha
+desktop_manager: awesome
+ide: vscode
+browser: google-chrome
+terminal: terminator
+text_editor: vim
+shell: oh-my-zsh
+wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
+user: alpha

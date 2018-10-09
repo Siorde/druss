@@ -3,17 +3,20 @@
   tasks:
   # Ajout des variables
   - name: Get the variables
-    include_role:
-      name: "{{playbook_dir}}/../example_conf.yml"
+    include_vars:
+      file: "{{playbook_dir}}/../example_conf.yml"
+  - debug:
+      msg: "{{wallpaper}}"
   # Si un fond d'ecran est specifie, on l'ajoute sur la machine host
   - name: install wallpaper
     file :
       src: "{{wallpaper}}"
       dest: "/usr/share/images/wallpaper"
+      state: hard
       owner: root
       group: root
       mode : 0544
-    when: wallpaper
+    when: wallpaper is defined
 
   ##################################################################
   # Installation de Awesome
