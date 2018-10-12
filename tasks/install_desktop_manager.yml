@@ -10,8 +10,8 @@
     copy :
       src: "{{wallpaper}}"
       dest: "/usr/share/wallpapers/wallpaper-{{user}}"
-      owner: root
-      group: root
+      owner: "{{user}}"
+      group: "{{user}}"
       mode : 0544
     when: wallpaper is defined
 
