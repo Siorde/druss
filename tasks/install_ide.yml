@@ -5,4 +5,25 @@
   - name: Get the variables
     include_vars:
       file: "{{playbook_dir}}/../example_conf.yml"
-  
+
+  ##################################################################
+  # Installation de VSCode
+  ##################################################################
+  # Telechagement du paquet .deb de VSCode
+  - name: download vscdode.deb
+    get_url:
+      url: "https://go.microsoft.com/fwlink/?LinkID=760868"
+      dest: "~{{user}}/vscode.deb"
+    when: ide == "vscode"
+
+  # Installation de VSCode
+  - name: install vscdode
+    apt:
+      deb: "~{{user}}/vscode.deb"
+    when: ide == "vscode"
+
+  # Suppression de vscode.deb
+  - name: remove vscode.deb
+    file:
+      state: absent
+      path: "~{{user}}/vscode.deb"
