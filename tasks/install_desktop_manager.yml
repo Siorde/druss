@@ -9,7 +9,7 @@
   - name: install wallpaper
     copy :
       src: "{{wallpaper}}"
-      dest: "/usr/share/wallpapers/custom"
+      dest: "/usr/share/wallpapers/wallpaper-{{user}}"
       owner: root
       group: root
       mode : 0544
@@ -31,7 +31,9 @@
     file:
       path: "~{{user}}/.config/awesome/"
       state: directory
-      mode: 0755
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode: 0700
     when: desktop_manager == "awesome"
 
   # On ajoute la configuration generale de Awesome
@@ -39,17 +41,17 @@
     template:
       src: "{{playbook_dir}}/../templates/rc.lua"
       dest: "~{{user}}/.config/awesome/rc.lua"
-      owner: root
-      group: root
-      mode : 0544
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode : 0744
     when: desktop_manager == "awesome"
 
   # On ajoute la configuration du theme
   - name: Add the theme file
     template:
       src: "{{playbook_dir}}/../templates/theme.lua"
-      dest: "/usr/share/awesome/themes/default/theme.lua"
-      owner: root
-      group: root
-      mode : 0544
+      dest: "/usr/share/awesome/themes/default/theme-{{user}}.lua"
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode : 0744
     when: desktop_manager == "awesome"
