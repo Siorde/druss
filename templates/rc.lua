@@ -57,6 +57,88 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+{% if awesome_layout is defined %}
+{% if awesome_layout.floating is defined and awesome_layout.floating == true %}
+    awful.layout.suit.floating,
+{% else %}
+    -- awful.layout.suit.floating,
+{% endif %}
+{% if awesome_layout.tile is defined and awesome_layout.tile == true %}
+    awful.layout.suit.tile
+{% else %}
+    -- awful.layout.suit.tile,
+{% endif %}
+{% if awesome_layout.tile_left is defined and awesome_layout.tile_left == true %}
+    awful.layout.suit.tile.left,
+{% else %}
+    -- awful.layout.suit.tile.left
+{% endif %}
+{% if awesome_layout.tile_bottom is defined and awesome_layout.tile_bottom == true %}
+    awful.layout.suit.tile.bottom,
+{% else %}
+    -- awful.layout.suit.tile.bottom,
+{% endif %}
+{% if awesome_layout.tile_top is defined and awesome_layout.tile_top == true %}
+    awful.layout.suit.tile.top,
+{% else %}
+    -- awful.layout.suit.tile.top,
+{% endif %}
+{% if awesome_layout.fair is defined and awesome_layout.fair == true %}
+    awful.layout.suit.fair,
+{% else %}
+    -- awful.layout.suit.fair,
+{% endif %}
+{% if awesome_layout.fair_horizontal is defined and awesome_layout.fair_horizontal == true %}
+    awful.layout.suit.fair.horizontal,
+{% else %}
+    -- awful.layout.suit.fair.horizontal,
+{% endif %}
+{% if awesome_layout.spiral is defined and awesome_layout.spiral == true %}
+    awful.layout.suit.spiral,
+{% else %}
+    -- awful.layout.suit.spiral,
+{% endif %}
+{% if awesome_layout.spiral_dwindle is defined and awesome_layout.spiral_dwindle == true %}
+    awful.layout.suit.spiral.dwindle,
+{% else %}
+    -- awful.layout.suit.spiral.dwindle,
+{% endif %}
+{% if awesome_layout.max is defined and awesome_layout.max == true %}
+    awful.layout.suit.max,
+{% else %}
+    -- awful.layout.suit.max,
+{% endif %}
+{% if awesome_layout.max_fullscreen is defined and awesome_layout.max_fullscreen == true %}
+    awful.layout.suit.max.fullscreen,
+{% else %}
+    -- awful.layout.suit.max.fullscreen,
+{% endif %}
+{% if awesome_layout.magnifier is defined and awesome_layout.magnifier == true %}
+    awful.layout.suit.magnifier,
+{% else %}
+    -- awful.layout.suit.magnifier,
+{% endif %}
+{% if awesome_layout.corner_nw is defined and awesome_layout.corner_nw == true %}
+    awful.layout.suit.corner.nw,
+{% else %}
+    -- awful.layout.suit.corner.nw,
+{% endif %}
+{% if awesome_layout.corner_ne is defined and awesome_layout.corner_ne == true %}
+    awful.layout.suit.corner.ne,
+{% else %}
+    -- awful.layout.suit.corner.ne,
+{% endif %}
+{% if awesome_layout.corner_sw is defined and awesome_layout.corner_sw == true %}
+    awful.layout.suit.corner.sw,
+{% else %}
+    -- awful.layout.suit.corner.sw,
+{% endif %}
+{% if awesome_layout.corner_se is defined and awesome_layout.corner_se == true %}
+    awful.layout.suit.corner.se,
+{% else %}
+    -- awful.layout.suit.corner.se,
+{% endif %}
+{% else %}
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -73,6 +155,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
+{% endif %}
 }
 -- ]]]
 
