@@ -1,0 +1,45 @@
+# Fichier de configuration
+---
+##############################################################
+# Desktop
+##############################################################
+# Choose the desktop manager
+# Values : "awesome"
+desktop_manager: awesome
+# Choose the desktop wallpaper
+# Values : /path/to/wallpaper
+wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
+# Configure awesome layouts
+# required: desktop_manager==awesome
+# Values : yes; no
+awesome_layout: {
+  floating: no,
+  tile: no,
+  tile_left: no,
+  tile_bottom: no,
+  tile_top: no,
+  fair: yes,
+  fair_horizontal: yes,
+  spiral: no,
+  spiral_dwindle: yes,
+  max: yes,
+  max_fullscreen: no,
+  magnifier: no,
+  corner_nw: no,
+  corner_ne: no,
+  corner_sw: no,
+  corner_se: no
+}
+
+##############################################################
+# IDE
+##############################################################
+# Choose the IDE
+# Values : "vscode"
+ide: vscode
+
+
+browser: google-chrome
+terminal: terminator
+text_editor: vim
+shell: oh-my-zsh
