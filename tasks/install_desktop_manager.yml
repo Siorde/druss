@@ -4,20 +4,20 @@
   # Ajout des variables
   - name: Get the variables
     include_vars:
-      file: "{{playbook_dir}}/../example_conf.yml"
+      file: "{{playbook_dir}}/../conf.yml"
   # Si un fond d'ecran est specifie, on l'ajoute sur la machine host
   - name: install wallpaper
     copy :
       src: "{{wallpaper}}"
-      dest: "/usr/share/wallpapers/wallpaper-{{user}}"
-      owner: "{{user}}"
-      group: "{{user}}"
+      dest: "/usr/share/wallpapers/wallpaper-{{ansible_user_id}}"
+      owner: "{{ansible_user_id}}"
+      group: "{{ansible_user_id}}"
       mode : 0544
     when: wallpaper is defined
 
-  ##################################################################
+  ################################################################
   # Installation de Awesome
-  ##################################################################
+  ################################################################
   # Installation du paquet
   - name: install package
     apt:
@@ -29,10 +29,10 @@
   # On cree le dossier de configuration de awesome s'il n'existe pas
   - name: create conf directory
     file:
-      path: "~{{user}}/.config/awesome/"
+      path: "~{{ansible_user_id}}/.config/awesome/"
       state: directory
-      owner: "{{user}}"
-      group: "{{user}}"
+      owner: "{{ansible_user_id}}"
+      group: "{{ansible_user_id}}"
       mode: 0700
     when: desktop_manager == "awesome"
 
@@ -40,9 +40,9 @@
   - name: Add the configuration file
     template:
       src: "{{playbook_dir}}/../templates/rc.lua"
-      dest: "~{{user}}/.config/awesome/rc.lua"
-      owner: "{{user}}"
-      group: "{{user}}"
+      dest: "~{{ansible_user_id}}/.config/awesome/rc.lua"
+      owner: "{{ansible_user_id}}"
+      group: "{{ansible_user_id}}"
       mode : 0744
     when: desktop_manager == "awesome"
 
@@ -50,8 +50,8 @@
   - name: Add the theme file
     template:
       src: "{{playbook_dir}}/../templates/theme.lua"
-      dest: "/usr/share/awesome/themes/default/theme-{{user}}.lua"
-      owner: "{{user}}"
-      group: "{{user}}"
+      dest: "/usr/share/awesome/themes/default/theme-{{ansible_user_id}}.lua"
+      owner: "{{ansible_user_id}}"
+      group: "{{ansible_user_id}}"
       mode : 0744
     when: desktop_manager == "awesome"
