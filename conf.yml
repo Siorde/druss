@@ -6,12 +6,9 @@
 # Choose the desktop manager
 # Values : "awesome"
 desktop_manager: awesome
-# Choose the desktop wallpaper
-# Values : /path/to/wallpaper
-wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
 # Configure awesome layouts
 # required: desktop_manager==awesome
-# Values : yes; no
+# Values : "yes"; "no"
 awesome_layout: {
   floating: no,
   tile: no,
@@ -30,6 +27,10 @@ awesome_layout: {
   corner_sw: no,
   corner_se: no
 }
+# Configure if titlebars are deplay in awesome
+# required: desktop_manager==awesome
+# Values : "yes"; "no"
+awesome_titlebar: no
 
 ##############################################################
 # IDE
@@ -38,8 +39,82 @@ awesome_layout: {
 # Values : "vscode"
 ide: vscode
 
-
-browser: google-chrome
+##############################################################
+# Terminal
+##############################################################
+# Choose the terminal
+# Values : "terminator"
 terminal: terminator
-text_editor: vim
+# Configure if titlebars are deplay in terminator
+# required: terminal==terminator
+# Values : "yes"; "no"
+terminator_titlebar: no
+
+##############################################################
+# Shell
+##############################################################
+# Choose the shell
+# Values : "oh-my-zsh"
 shell: oh-my-zsh
+# choose the oh-my-zsh theme
+# required: shell==oh-my-zsh
+# Values : "powerlevel9k"
+oh_my_zsh_theme: powerlevel9k
+
+##############################################################
+# Text editor
+##############################################################
+# Choose the text editor
+# Values : "vim"
+text_editor: vim
+
+##############################################################
+# Browser
+##############################################################
+# Choose the browser
+# Values : "google-chrome"
+browser: google-chrome
+
+##############################################################
+# Screenlocker
+##############################################################
+# Choose the screenlocker
+# Values : "i3lock-fancy"
+screenlocker: i3lock-fancy
+# Configure shortcut to lock the screen
+# required: screenlocker==i3lock-fancy
+# Values : KEY
+i3_lock_fancy_bindkey: F12
+
+##############################################################
+# Wallpapers
+##############################################################
+# Choose the desktop wallpaper
+# Values : /path/to/wallpaper
+wallpaper: /home/bytekey/documents/initDebian/wallpaper.jpg
+# Choose the login wallpaper
+# Values : /path/to/wallpaper
+login_wallpaper: /home/bytekey/documents/initDebian/login-wallpaper.jpg
+
+##############################################################
+# Package installation
+##############################################################
+# List of package you wish to install with apt
+# Values : ["package1", "package2",...]
+install: ["caja-open-terminal", "curl", "tree", "python3-pip", "ipython3"]
+
+##############################################################
+# User directory
+##############################################################
+# Configure the user directories
+# Values : DIRECTORY_NAME
+user_directories: {
+  desktop: "desktop",
+  download: "downloads",
+  templates: "",
+  public: "",
+  documents: "documents",
+  music: "",
+  pictures: "",
+  videos: ""
+}
