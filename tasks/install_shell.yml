@@ -1,0 +1,99 @@
+---
+- hosts: all
+  tasks:
+  # Ajout des variables
+  - name: Get the variables
+    include_vars:
+      file: "{{playbook_dir}}/../conf.yml"
+
+  # Récuperer le dossier home du user pour le .zshrc
+  - name: get user home directory
+    command: "echo ~{{host_user}}"
+    register: host_home
+    when: host_user
+    
+  ##################################################################
+  # Installation de oh-my-zsh
+  ##################################################################
+  # Installation du paquet zsh
+  - name: install zsh package
+    apt:
+      name: zsh
+      state: present
+      update_cache: yes
+    when: shell == "oh-my-zsh"
+
+  # Telechargement du dossier oh-my-zsh
+  - name: Cloning oh-my-zsh
+    git:
+      repo: https://github.com/robbyrussell/oh-my-zsh
+      dest: "~{{host_user}}/.oh-my-zsh"
+      version: master
+    when: shell == "oh-my-zsh"
+
+  # On change la propriete du dossier oh-my-zsh
+  - name: Change owner of oh-my-zsh directory
+    file:
+      path: "~{{host_user}}/.oh-my-zsh"
+      owner: "{{host_user}}"
+      group: "{{host_user}}"
+      recurse: yes
+    when: shell == "oh-my-zsh"
+
+  # On ajoute la configuration de oh-my-zsh
+  - name: Add the oh-my-zsh configuration file
+    template:
+      src: "{{playbook_dir}}/../templates/.zshrc"
+      dest: "~{{host_user}}/.zshrc"
+      owner: "{{host_user}}"
+      group: "{{host_user}}"
+      mode : 0744
+    when: shell == "oh-my-zsh"
+
+  # On met zsh en shell par defaut
+  - name: chsh /bin/zsh for the user
+    user:
+      name: "{{host_user}}"
+      shell: "/bin/zsh"
+
+  # Telechargement du theme powerlevel9k pour oh-my-zsh
+  - name: Cloning powerlevel9k
+    git:
+      repo: https://github.com/bhilburn/powerlevel9k.git
+      dest: "~{{host_user}}/.oh-my-zsh/custom/themes/powerlevel9k"
+      version: master
+    when:
+      - shell == "oh-my-zsh"
+      - oh_my_zsh_theme == "powerlevel9k"
+
+  # On change la propriete du dossier powerlevel9k
+  - name: Change owner of powerlevel9k directory
+    file:
+      path: "~{{host_user}}/.oh-my-zsh/custom/themes/powerlevel9k"
+      owner: "{{host_user}}"
+      group: "{{host_user}}"
+      recurse: yes
+    when:
+      - shell == "oh-my-zsh"
+      - oh_my_zsh_theme == "powerlevel9k"
+
+  # On cree le dossier d'open font
+  - name: create open font directory
+    file:
+      path: "/usr/share/fonts/opentype"
+      state: directory
+      owner: "root"
+      group: "root"
+      mode: 0755
+    when:
+      - shell == "oh-my-zsh"
+      - oh_my_zsh_theme == "powerlevel9k"
+
+  # Telechargement de la font pour powerlevel9k
+  - name : Download font
+    uri:
+      url: https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/Meslo/M-DZ/complete/Meslo%20LG%20M%20DZ%20Regular%20Nerd%20Font%20Complete%20Mono.otf
+      dest: "/usr/share/fonts/opentype/Meslo.otf"
+    when:
+    - shell == "oh-my-zsh"
+    - oh_my_zsh_theme == "powerlevel9k"
