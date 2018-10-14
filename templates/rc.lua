@@ -41,11 +41,15 @@ end
 
 -- [[[ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme-{{user}}.lua")
+beautiful.init(awful.util.get_themes_dir() .. "default/theme-{{host_user}}.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
+{% if text_editor is defined %}
+editor = os.getenv("EDITOR") or "{{text_editor}}"
+{% else %}
+    editor = os.getenv("EDITOR") or "editor"
+{% endif %}
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -387,6 +391,9 @@ globalkeys = awful.util.table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+{% if screenlocker is defined and screenlocker == "i3lock-fancy" and i3_lock_fancy_bindkey is defined %}
+    awful.key({ }, "{{i3_lock_fancy_bindkey}}", function () awful.util.spawn("i3lock-fancy-dualmonitor") end),
+{% endif %}
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -552,9 +559,15 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
+{% if awesome_titlebar is defined and awesome_titlebar==false %}
+    -- { rule_any = {type = { "normal", "dialog" }
+    --   }, properties = { titlebars_enabled = true }
+    -- },
+{% else %}
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+        }, properties = { titlebars_enabled = true }
     },
+{% endif %}
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
