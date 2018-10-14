@@ -78,7 +78,7 @@ theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/defau
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
 {% if wallpaper is defined %}
-theme.wallpaper = "/usr/share/wallpapers/wallpaper-{{user}}"
+theme.wallpaper = "/usr/share/wallpapers/wallpaper-{{host_user}}"
 {% else %}
 theme.wallpaper = "/usr/share/awesome/themes/default/background.png"
 {% endif %}
