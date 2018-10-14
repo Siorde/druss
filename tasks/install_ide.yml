@@ -13,17 +13,18 @@
   - name: download vscdode.deb
     get_url:
       url: "https://go.microsoft.com/fwlink/?LinkID=760868"
-      dest: "~{{ansible_user_id}}}/vscode.deb"
+      dest: "~{{host_user}}/vscode.deb"
     when: ide == "vscode"
 
   # Installation de VSCode
   - name: install vscdode
     apt:
-      deb: "~{{ansible_user_id}}}/vscode.deb"
+      deb: "~{{host_user}}/vscode.deb"
     when: ide == "vscode"
 
   # Suppression de vscode.deb
   - name: remove vscode.deb
     file:
       state: absent
-      path: "~{{ansible_user_id}}}/vscode.deb"
+      path: "~{{host_user}}/vscode.deb"
+    when: ide == "vscode"
