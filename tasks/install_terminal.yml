@@ -1,0 +1,38 @@
+---
+- hosts: all
+  tasks:
+  # Ajout des variables
+  - name: Get the variables
+    include_vars:
+      file: "{{playbook_dir}}/../conf.yml"
+
+  ##################################################################
+  # Installation de terminator
+  ##################################################################
+  # Installation du paquet
+  - name: install terminator package
+    apt:
+      name: terminator
+      state: present
+      update_cache: yes
+    when: terminal == "terminator"
+
+  # On cree le dossier de configuration de terminator s'il n'existe pas
+  - name: create terminator configuration directory
+    file:
+      path: "~{{host_user}}/.config/terminator/"
+      state: directory
+      owner: "{{host_user}}"
+      group: "{{host_user}}"
+      mode: 0700
+    when: terminal == "terminator"
+
+  # On ajoute la configuration de terminator
+  - name: Add the terminator configuration file
+    template:
+      src: "{{playbook_dir}}/../templates/config"
+      dest: "~{{host_user}}/.config/terminator/config"
+      owner: "{{host_user}}"
+      group: "{{host_user}}"
+      mode : 0744
+    when: terminal == "terminator"
