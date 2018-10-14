@@ -1,0 +1,22 @@
+---
+- hosts: all
+  tasks:
+  # Ajout des variables
+  - name: Get the variables
+    include_vars:
+      file: "{{playbook_dir}}/../conf.yml"
+
+  # Installation du paquet git
+  - name: install git package
+    apt:
+      name: git
+      state: present
+      update_cache: yes
+
+# Installation de la liste des paquets 
+  - name: install list of package
+    apt:
+      name: "{{ install }}"
+      state: present
+      update_cache: yes
+
