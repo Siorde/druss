@@ -1,9 +1,0 @@
----
-- hosts: all
-  tasks:
-  # Ajout des variables
-  - name: Get the variables
-    include_vars:
-      file: "{{playbook_dir}}/../conf.yml"
-
-      
