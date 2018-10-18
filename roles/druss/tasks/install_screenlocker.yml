@@ -1,0 +1,41 @@
+---
+##################################################################
+# Installation de i3lock-fancy
+##################################################################
+# Installation du paquet git
+- name: install i3lock package
+  apt:
+    name: i3lock
+    state: present
+    update_cache: yes
+
+# Installation du paquet git
+- name: install scrot package
+  apt:
+    name: scrot
+    state: present
+    update_cache: yes
+    
+# Telechargement du dossier i3lock-fancy
+- name: Cloning i3lock-fancy
+  git:
+    repo: https://github.com/meskarune/i3lock-fancy.git
+    dest: "~{{host_user}}/.i3lock-fancy"
+    version: dualmonitors
+  when: screenlocker == "i3lock-fancy"
+
+# On change la propriete du dossier i3lock-fancy
+- name: Change owner of i3lock-fancy directory
+  file:
+    path: "~{{host_user}}/.i3lock-fancy"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    recurse: yes
+  when: screenlocker == "i3lock-fancy"
+
+# Installation de i3lock-fancy
+- name: install i3lock-fancy
+  make:
+    chdir: "~{{host_user}}/.i3lock-fancy"
+    target: install
+  when: screenlocker == "i3lock-fancy"

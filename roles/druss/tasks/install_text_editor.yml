@@ -1,0 +1,23 @@
+---
+##################################################################
+# Installation de vim
+##################################################################
+# Installation du paquet vim
+- name: install vim package
+  apt:
+    name: vim
+    state: present
+    update_cache: yes
+  when: text_editor == "vim"
+
+# On ajoute la configuration de vim
+- name: Add the vim configuration file
+  template:
+    src: ".vimrc"
+    dest: "~{{host_user}}/.vimrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0700
+  when: 
+    - text_editor == "vim"
+    - vim_fancy

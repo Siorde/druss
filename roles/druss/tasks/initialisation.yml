@@ -1,0 +1,14 @@
+---
+# Installation du paquet git
+- name: install git package
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+# Installation de la liste des paquets 
+- name: install list of package
+  apt:
+    name: "{{ install }}"
+    state: present
+    update_cache: yes

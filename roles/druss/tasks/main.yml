@@ -1,0 +1,10 @@
+---
+- import_tasks: initialisation.yml
+- import_tasks: install_desktop_manager.yml
+- import_tasks: install_terminal.yml
+- import_tasks: install_shell.yml
+- import_tasks: install_text_editor.yml
+- import_tasks: install_ide.yml
+- import_tasks: install_browser.yml
+- import_tasks: install_wallpapers.yml
+- import_tasks: install_screenlocker.yml
