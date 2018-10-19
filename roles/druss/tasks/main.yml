@@ -8,3 +8,5 @@
 - import_tasks: install_browser.yml
 - import_tasks: install_wallpapers.yml
 - import_tasks: install_screenlocker.yml
+- name: reboot
+  reboot:

@@ -27,6 +27,11 @@
     recurse: yes
   when: shell == "oh-my-zsh"
 
+# On récupère le path vers le home du user pour le fichier de configuration
+- name: Get the path to the user home directory
+  command: echo ~{{host_user}}
+  register: user_home
+
 # On ajoute la configuration de oh-my-zsh
 - name: Add the oh-my-zsh configuration file
   template:

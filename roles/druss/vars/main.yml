@@ -106,3 +106,10 @@ login_wallpaper: /home/bytekey/documents/initDebian/login-wallpaper.jpg
 # List of package you wish to install with apt
 # Values : ["package1", "package2",...]
 install: ["caja-open-terminal", "curl", "tree", "python3-pip", "ipython3"]
+
+##############################################################
+# Sudo
+##############################################################
+# Set the sudo privilige to the user
+# Values : "yes", "no"
+sudo: yes

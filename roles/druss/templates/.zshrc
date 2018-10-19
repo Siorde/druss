@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="{{ lookup('env','HOME') }}/.oh-my-zsh"
+export ZSH="{{user_home.stdout}}/.oh-my-zsh"
 
 # Custom 
 {% if oh_my_zsh_theme is defined and oh_my_zsh_theme == "powerlevel9k" %}
