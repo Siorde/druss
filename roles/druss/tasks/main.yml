@@ -1,12 +1,19 @@
 ---
 - import_tasks: initialisation.yml
 - import_tasks: install_desktop_manager.yml
+  when: desktop_manager is defined
 - import_tasks: install_terminal.yml
+  when: terminal is defined
 - import_tasks: install_shell.yml
+  when: shell is defined
 - import_tasks: install_text_editor.yml
+  when: text_editor is defined
 - import_tasks: install_ide.yml
+  when: ide is defined
 - import_tasks: install_browser.yml
+  when: browser is defined
 - import_tasks: install_wallpapers.yml
 - import_tasks: install_screenlocker.yml
+  when: screen_locker is defined
 - name: reboot
   reboot:

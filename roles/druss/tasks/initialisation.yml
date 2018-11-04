@@ -12,10 +12,11 @@
     name: "{{ install }}"
     state: present
     update_cache: yes
+  when: install is defined
 
 # Ajout de l'utilisateur au fichier sudoer
 - name: Add the user to the sudoer group
   user:
     name: "{{host_user}}"
     groups: sudo
-  when: sudo
+  when: sudo is defined

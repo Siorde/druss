@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Druss
 Druss is an Ansible project that help you configure your Debian environnement. For example you can install your desktop manager, your favorite shell and your IDE with one configuration file. For now this project only fits my configuration, but i will add more soon.
 ## Getting Started
@@ -32,3 +33,7 @@ ansible-playbook -i /path/to/the/hosts/file /path/to/the/depo/druss/druss.yml
 * **Quentin Aubry** - *Initial work* - [Siorde](https://github.com/Siorde)
 ## License
 This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE - see the [LICENSE.md](LICENSE.md) file for details
+=======
+# druss
+An Ansible job that help you configure your Debian environnement 
+>>>>>>> d55e7a9bd194efb7a70257eef9df4818fa5acb9f

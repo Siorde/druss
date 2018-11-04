@@ -8,6 +8,7 @@
     name: i3lock
     state: present
     update_cache: yes
+  when: screenlocker == "i3lock-fancy"
 
 # Installation du paquet git
 - name: install scrot package
@@ -15,6 +16,7 @@
     name: scrot
     state: present
     update_cache: yes
+  when: screenlocker == "i3lock-fancy"
     
 # Telechargement du dossier i3lock-fancy
 - name: Cloning i3lock-fancy
