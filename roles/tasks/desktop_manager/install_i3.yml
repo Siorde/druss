@@ -1,0 +1,19 @@
+---
+###############################################################################
+# Installation de i3
+###############################################################################
+# Installation du paquet
+- name: install i3 package
+  apt:
+    name: awesome
+    state: present
+    update_cache: yes
+
+# On cree le dossier de configuration de i3 s'il n'existe pas
+- name: create i3 configuration directory
+  file:
+    path: "~{{host_user}}/.config/i3"
+    state: directory
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode: 0700

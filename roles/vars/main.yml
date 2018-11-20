@@ -1,0 +1,5 @@
+---
+# On include le fichier de variables pour le desktop manager
+- name: include desktop_manager variables
+  include_vars:
+    file: desktop_manager.yml

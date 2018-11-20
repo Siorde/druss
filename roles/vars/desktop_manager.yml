@@ -1,0 +1,12 @@
+---
+###############################################################################
+# Desktop
+###############################################################################
+
+# Choose the desktop manager
+# Values : "awesome", "i3", "i3-gaps"
+desktop_manager: awesome
+
+# Specify a configuration file
+# Values : /path/to/your/conf/file
+desktop_manager_conf_file: ~/depots/druss/examples/alpha/files
