@@ -17,3 +17,13 @@
     owner: "{{host_user}}"
     group: "{{host_user}}"
     mode: 0700
+
+# On copie le fichier de configuration s'il est passé en argument
+- name: copy the configuration file if specify
+  copy:
+    src: "{{ desktop_manager_conf_file }}"
+    dest: "~{{host_user}}/.config/i3/config"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: desktop_manager_conf_file is defined
