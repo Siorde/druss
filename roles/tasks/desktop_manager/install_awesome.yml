@@ -1,18 +1,18 @@
 ---
 ###############################################################################
-# Installation de i3
+# Installation de awesome
 ###############################################################################
 # Installation du paquet
-- name: install i3 package
+- name: install awesome package
   apt:
-    name: i3
+    name: awesome
     state: present
     update_cache: yes
 
-# On cree le dossier de configuration de i3 s'il n'existe pas
-- name: create i3 configuration directory
+# On cree le dossier de configuration de awesome s'il n'existe pas
+- name: create awesome configuration directory
   file:
-    path: "~{{host_user}}/.config/i3"
+    path: "~{{host_user}}/.config/awesome"
     state: directory
     owner: "{{host_user}}"
     group: "{{host_user}}"
@@ -22,17 +22,17 @@
 - name: copy the configuration file
   copy:
     src: "{{ desktop_manager_conf_file }}"
-    dest: "~{{host_user}}/.config/i3/config"
+    dest: "~{{host_user}}/.config/awesome/rc.lua"
     owner: "{{host_user}}"
     group: "{{host_user}}"
     mode : 0744
   when: desktop_manager_conf_file is defined
 
-# On copie le fichier de configuration de i3 par défaut si le fichier de config n'est pas spécifié
+# On copie le fichier de configuration de awesome par défaut si le fichier de config n'est pas spécifié
 - name: copy the configuration file
   template:
-    src: "i3_config"
-    dest: "~{{host_user}}/.config/i3/config"
+    src: "awesome_config"
+    dest: "~{{host_user}}/.config/awesome/rc.lua"
     owner: "{{host_user}}"
     group: "{{host_user}}"
     mode : 0744

@@ -1,13 +1,33 @@
 ---
 ###############################################################################
-# Installation de i3
+# Installation de i3-gaps
 ###############################################################################
-# Installation du paquet
-- name: install i3 package
+# Installation des dépendances
+- name: install dependencies
   apt:
-    name: i3
+    name: git libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev
     state: present
     update_cache: yes
+
+# On cree le dossier où l'on va mettre le depot i3-gaps
+- name: create i3-gaps directory
+  file:
+    path: "~{{host_user}}/.i3-gaps"
+    state: directory
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode: 0700
+
+# On récupère le repo i3-gaps
+- name: get i3-gaps repository
+  git:
+    repo: 'https://github.com/Airblader/i3.git'
+    dest: "~{{host_user}}/.i3-gaps"
+    version: gaps
+
+# On fait l'autoreconf
+- name: autoreconf in the repo
+  shell: "cd ~{{host_user}}/.i3-gaps/i3 ; autoreconf --force --install"
 
 # On cree le dossier de configuration de i3 s'il n'existe pas
 - name: create i3 configuration directory
