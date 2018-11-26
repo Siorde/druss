@@ -1,0 +1,61 @@
+---
+##################################################################
+# Installation de oh-my-zsh
+##################################################################
+# Installation du paquet zsh
+- name: install zsh package
+  apt:
+    name: zsh
+    state: present
+    update_cache: yes
+  when: shell == "oh-my-zsh"
+
+# Telechargement du dossier oh-my-zsh
+- name: Cloning oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: "~{{host_user}}/.oh-my-zsh"
+    version: master
+  when: shell == "oh-my-zsh"
+
+# On change la propriete du dossier oh-my-zsh
+- name: Change owner of oh-my-zsh directory
+  file:
+    path: "~{{host_user}}/.oh-my-zsh"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    recurse: yes
+  when: shell == "oh-my-zsh"
+
+# On récupère le path vers le home du user pour le fichier de configuration
+- name: Get the path to the user home directory
+  command: echo ~{{host_user}}
+  register: user_home
+
+# On copie le fichier de configuration s'il est passé en argument
+- name: copy the configuration file
+  copy:
+    src: "{{ shell_conf_file }}"
+    dest: "~{{host_user}}/.zshrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: shell_conf_file is defined
+
+# On copie le fichier de configuration de awesome par défaut si le fichier de config n'est pas spécifié
+- name: copy the configuration file
+  template:
+    src: "oh-my-zsh_config"
+    dest: "~{{host_user}}/.zshrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: shell_conf_file is not defined
+
+# On change le path du user si le fichier est passé en paramètre
+- name: replace path user in the configuration file
+  replace:
+    path: "~{{host_user}}/.zshrc"
+    regexp: '^export ZSH.*$'
+    replace: 'export ZSH="{{user_home.stdout}}/.oh-my-zsh"'
+  when: shell_conf_file is defined

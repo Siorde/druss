@@ -1,0 +1,20 @@
+---
+##################################################################
+# Installation de VSCode
+##################################################################
+# Telechagement du paquet .deb de VSCode
+- name: download vscdode.deb
+  get_url:
+    url: "https://go.microsoft.com/fwlink/?LinkID=760868"
+    dest: "~{{host_user}}/vscode.deb"
+
+# Installation de VSCode
+- name: install vscdode
+  apt:
+    deb: "~{{host_user}}/vscode.deb"
+
+# Suppression de vscode.deb
+- name: remove vscode.deb
+  file:
+    state: absent
+    path: "~{{host_user}}/vscode.deb"

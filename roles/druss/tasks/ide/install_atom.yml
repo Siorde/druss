@@ -1,0 +1,20 @@
+---
+##################################################################
+# Installation de atom
+##################################################################
+# Telechagement du paquet .deb de atom
+- name: download vscdode.deb
+  get_url:
+    url: "https://atom.io/download/deb"
+    dest: "~{{host_user}}/atom.deb"
+
+# Installation de atom
+- name: install atom
+  apt:
+    deb: "~{{host_user}}/atom.deb"
+
+# Suppression de atom.deb
+- name: remove atom.deb
+  file:
+    state: absent
+    path: "~{{host_user}}/atom.deb"

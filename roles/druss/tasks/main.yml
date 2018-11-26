@@ -1,0 +1,39 @@
+---
+###############################################################################
+# Desktop manager
+###############################################################################
+# Si le desktop_manager est i3
+name: install i3
+  include: install_i3.yml
+  when: desktop_manager is defined and desktop_manager=="i3"
+
+# Si le desktop_manager est awesome
+name: install awesome
+  include: desktop_manager/install_awesome.yml
+  when: desktop_manager is defined and desktop_manager=="awesome"
+
+# Si le desktop_manager est i3-gaps
+name: install i3-gaps
+  include: desktop_manager/install_i3-gaps.yml
+  when: desktop_manager is defined and desktop_manager=="i3-gaps"
+
+###############################################################################
+# IDE
+###############################################################################
+# Si l'ide est vscode
+name: install vscode
+  include: ide/install_vscode.yml
+  when: ide is defined and ide=="vscode"
+
+# Si l'ide est atom
+name: install atom
+  include: ide/install_atom.yml
+  when: ide is defined and ide=="atom"
+
+###############################################################################
+# Shell
+###############################################################################
+# Si le shell est oh-my-zsh
+name: install oh-my-zsh
+  include: shell/install_oh-my-zsh.yml
+  when: shell is defined and shell=="oh-my-zsh"

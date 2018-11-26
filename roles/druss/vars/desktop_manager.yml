@@ -7,6 +7,7 @@
 # Values : "awesome", "i3", "i3-gaps"
 desktop_manager: awesome
 
-# Specify a configuration file
+# Specify your configuration file to deploy on the targets
+# Require "desktop_manager" to be set
 # Values : /path/to/your/conf/file
-desktop_manager_conf_file: ~/depots/druss/examples/alpha/files
+#desktop_manager_conf_file: ~/depots/druss/examples/alpha/files
