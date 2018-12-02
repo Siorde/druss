@@ -1,10 +1,69 @@
 ---
-# # On include le fichier de variables pour le desktop manager
-# - name: include desktop_manager variables
-#   include_vars:
-#     file: desktop_manager.yml
+###############################################################################
+# Desktop
+###############################################################################
+# Choose the desktop manager
+# Values : "awesome", "i3", "i3-gaps"
+#desktop_manager: i3-gaps
 
-# # On include le fichier de variables pour l'ide
-# - name: include ide variables
-#   include_vars:
-#     file: ide.yml
+# Specify your configuration file to deploy on the targets
+# Require "desktop_manager" to be set
+# Values : /path/to/your/conf/file
+#desktop_manager_conf_file: ~/documents/repo.git/druss/examples/alpha/config
+
+###############################################################################
+# IDE
+###############################################################################
+# Choose the IDE
+# Values : "vscode", "atom"
+#ide: atom
+
+###############################################################################
+# Shell
+###############################################################################
+# Choose the shell
+# Values : "oh-my-zsh", "zsh", "bash"
+#shell: zsh
+
+# Specify your configuration file to deploy on the targets
+# Require "shell" to be set
+# Values : /path/to/your/conf/file
+#shell_conf_file: ~/depots/druss/examples/alpha/files
+
+###############################################################################
+# Browser
+###############################################################################
+# Choose the browser
+# Values : "google-chrome", "firefox", "chromium"
+#browser: google-chrome
+
+###############################################################################
+# Text editor
+###############################################################################
+# Choose the text editor
+# Values : "vim", "emacs", "nano"
+#text_editor: vim
+
+# Specify your configuration file to deploy on the targets
+# Require "text_editor" to be set
+# Values : /path/to/your/conf/file
+#text_editor_conf_file: ~/depots/druss/examples/alpha/files
+
+###############################################################################
+# Terminal
+###############################################################################
+# Choose the terminal
+# Values : "terminator", "xterm"
+#termnal: terminator
+
+# Specify your configuration file to deploy on the targets
+# Require "terminal" to be set
+# Values : /path/to/your/conf/file
+#terminal_conf_file: ~/depots/druss/examples/alpha/files
+
+###############################################################################
+# Other
+###############################################################################
+# Reboot the system after the execution of the role
+# Values : "yes", "no"
+reboot: yes

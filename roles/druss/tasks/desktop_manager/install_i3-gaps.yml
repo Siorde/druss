@@ -5,7 +5,7 @@
 # Installation des dépendances
 - name: install dependencies
   apt:
-    name: git i3 libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev xcb libxcb1-dev libxcb-icccm4-dev libyajl-dev libev-dev libxcb-xkb-dev libxcb-cursor-dev libxkbcommon-dev libxcb-xinerama0-dev libxkbcommon-x11-dev libstartup-notification0-dev libxcb-randr0-dev libxcb-xrm0 libxcb-xrm-dev
+    name: ["git", "i3", "libxcb-keysyms1-dev", "libpango1.0-dev", "libxcb-util0-dev", "xcb", "libxcb1-dev", "libxcb-icccm4-dev", "libyajl-dev", "libev-dev", "libxcb-xkb-dev", "libxcb-cursor-dev", "libxkbcommon-dev", "libxcb-xinerama0-dev", "libxkbcommon-x11-dev", "libstartup-notification0-dev", "libxcb-randr0-dev", "libxcb-xrm0", "libxcb-xrm-dev"]
     state: present
     update_cache: yes
 
@@ -27,18 +27,18 @@
 
 # On fait l'autoreconf
 - name: autoreconf in the repo
-  shell: "cd ~{{host_user}}/.i3-gaps/i3 && autoreconf --force --install"
+  shell: "cd ~{{host_user}}/.i3-gaps && autoreconf --force --install"
 
 # On supprime le build actuel pour le recréer
 - name: delete build directory
   file:
-    path: "~{{host_user}}/.i3-gaps/i3/build"
+    path: "~{{host_user}}/.i3-gaps/build"
     state: absent
 
 # On recréé le dossier build
 - name: create build directory
   file:
-    path: "~{{host_user}}/.i3-gaps/i3/build"
+    path: "~{{host_user}}/.i3-gaps/build"
     state: directory
     owner: "{{host_user}}"
     group: "{{host_user}}"
@@ -46,7 +46,7 @@
 
 # On lance le build
 - name: build i3-gaps
-  shell: "cd ~{{host_user}}/.i3-gaps/i3/build && ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers && make && make install"
+  shell: "cd ~{{host_user}}/.i3-gaps/build && ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers && make && make install"
 
 # On copie le fichier de configuration s'il est passé en argument
 - name: copy the configuration file
@@ -57,13 +57,3 @@
     group: "{{host_user}}"
     mode : 0744
   when: desktop_manager_conf_file is defined
-
-# On copie le fichier de configuration de i3 par défaut si le fichier de config n'est pas spécifié
-- name: copy the configuration file
-  template:
-    src: "i3_config"
-    dest: "~{{host_user}}/.config/i3/config"
-    owner: "{{host_user}}"
-    group: "{{host_user}}"
-    mode : 0744
-  when: desktop_manager_conf_file is not defined

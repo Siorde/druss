@@ -1,0 +1,10 @@
+---
+##################################################################
+# Installation de firefox
+##################################################################
+# Installation du paquet firefox
+- name: install firefox package
+  apt:
+    name: firefox-esr
+    state: present
+    update_cache: yes

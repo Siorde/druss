@@ -3,17 +3,17 @@
 # Desktop manager
 ###############################################################################
 # Si le desktop_manager est i3
-name: install i3
-  include: install_i3.yml
+- name: install i3
+  include: desktop_manager/install_i3.yml
   when: desktop_manager is defined and desktop_manager=="i3"
 
 # Si le desktop_manager est awesome
-name: install awesome
+- name: install awesome
   include: desktop_manager/install_awesome.yml
   when: desktop_manager is defined and desktop_manager=="awesome"
 
 # Si le desktop_manager est i3-gaps
-name: install i3-gaps
+- name: install i3-gaps
   include: desktop_manager/install_i3-gaps.yml
   when: desktop_manager is defined and desktop_manager=="i3-gaps"
 
@@ -21,12 +21,12 @@ name: install i3-gaps
 # IDE
 ###############################################################################
 # Si l'ide est vscode
-name: install vscode
+- name: install vscode
   include: ide/install_vscode.yml
   when: ide is defined and ide=="vscode"
 
 # Si l'ide est atom
-name: install atom
+- name: install atom
   include: ide/install_atom.yml
   when: ide is defined and ide=="atom"
 
@@ -34,6 +34,68 @@ name: install atom
 # Shell
 ###############################################################################
 # Si le shell est oh-my-zsh
-name: install oh-my-zsh
+- name: install oh-my-zsh
   include: shell/install_oh-my-zsh.yml
   when: shell is defined and shell=="oh-my-zsh"
+
+# Si le shell est zsh
+- name: install zsh
+  include: shell/install_zsh.yml
+  when: shell is defined and shell=="zsh"
+
+###############################################################################
+# Browser
+###############################################################################
+# Si le navigateur est google-chrome
+- name: install google-chrome
+  include: browser/install_google-chrome.yml
+  when: browser is defined and browser=="google-chrome"
+
+# Si le navigateur est firefox
+- name: install firefox
+  include: browser/install_firefox.yml
+  when: browser is defined and browser=="firefox"
+
+# Si le navigateur est chromium
+- name: install chromium
+  include: browser/install_chromium.yml
+  when: browser is defined and browser=="chromium"
+
+###############################################################################
+# Editeur de texte
+###############################################################################
+# Si l'editeur de texte est vim
+- name: install vim
+  include: text_editor/install_vim.yml
+  when: text_editor is defined and text_editor=="vim"
+
+# Si l'editeur de texte est emacs
+- name: install emacs
+  include: text_editor/install_emacs.yml
+  when: text_editor is defined and text_editor=="emacs"
+
+# Si l'editeur de texte est nano
+- name: install chromium
+  include: text_editor/install_nano.yml
+  when: text_editor is defined and text_editor=="nano"
+
+###############################################################################
+# Terminal
+###############################################################################
+# Si le terminal est terminator
+- name: install terminator
+  include: terminal/install_terminator.yml
+  when: terminal is defined and terminal=="terminator"
+
+# Si le terminal est xterm
+- name: install xterm
+  include: terminal/install_xterm.yml
+  when: terminal is defined and terminal=="xterm"
+
+###############################################################################
+# Other
+###############################################################################
+# Reboot
+- name: reboot
+  reboot:
+  when: reboot is defined and reboot

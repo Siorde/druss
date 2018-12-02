@@ -1,0 +1,10 @@
+---
+##################################################################
+# Installation de chromuim
+##################################################################
+# Installation du paquet chromuim
+- name: install chromuimpackage
+  apt:
+    name: chromuim
+    state: present
+    update_cache: yes
