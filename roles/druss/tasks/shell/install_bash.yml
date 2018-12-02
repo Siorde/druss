@@ -1,0 +1,26 @@
+---
+##################################################################
+# Installation de bash
+##################################################################
+# Installation du paquet bash
+- name: install zsh package
+  apt:
+    name: bash
+    state: present
+    update_cache: yes
+
+# On copie le fichier de configuration s'il est passé en argument
+- name: copy the configuration file
+  copy:
+    src: "{{ shell_conf_file }}"
+    dest: "~{{host_user}}/.bashrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: shell_conf_file is defined
+
+# On met bash en shell par defaut
+- name: chsh /bin/bash for the user
+  user:
+    name: "{{host_user}}"
+    shell: "/bin/bash"

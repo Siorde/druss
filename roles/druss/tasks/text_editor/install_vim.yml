@@ -1,0 +1,20 @@
+---
+##################################################################
+# Installation de vim
+##################################################################
+# Installation du paquet vim
+- name: install vim package
+  apt:
+    name: vim
+    state: present
+    update_cache: yes
+    
+# On copie le fichier de configuration s'il est passé en argument
+- name: copy the configuration file
+  copy:
+    src: "{{ text_editor_conf_file }}"
+    dest: "~{{host_user}}/.vimrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: text_editor_conf_file is defined

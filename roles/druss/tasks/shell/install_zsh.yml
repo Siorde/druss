@@ -1,0 +1,26 @@
+---
+##################################################################
+# Installation de zsh
+##################################################################
+# Installation du paquet zsh
+- name: install zsh package
+  apt:
+    name: zsh
+    state: present
+    update_cache: yes
+    
+# On copie le fichier de configuration s'il est passé en argument
+- name: copy the configuration file
+  copy:
+    src: "{{ shell_conf_file }}"
+    dest: "~{{host_user}}/.zshrc"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: shell_conf_file is defined
+
+# On met zsh en shell par defaut
+- name: chsh /bin/zsh for the user
+  user:
+    name: "{{host_user}}"
+    shell: "/bin/zsh"

@@ -1,0 +1,20 @@
+---
+##################################################################
+# Installation de Xterm
+##################################################################
+# Installation du paquet
+- name: install xterm package
+  apt:
+    name: xterm
+    state: present
+    update_cache: yes
+
+# On ajoute la configuration de terminator
+- name: Add the terminator configuration file
+  template:
+    src: "config"
+    dest: "~{{host_user}}/.config/.Xresources"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: terminal_conf_file is defined
