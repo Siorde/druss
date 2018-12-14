@@ -3,7 +3,7 @@
 # Installation de bash
 ##################################################################
 # Installation du paquet bash
-- name: install zsh package
+- name: install bash package
   apt:
     name: bash
     state: present

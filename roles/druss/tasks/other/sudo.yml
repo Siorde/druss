@@ -1,0 +1,16 @@
+---
+# Ajout de l'utilisateur au group sudo
+- name: Add the user to the sudo group
+  user:
+    name: "{{host_user}}"
+    groups: sudo
+
+# Ajout de l'option nopasswd pour l'utilisateur
+- name: Allow user to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^{{host_user}}'
+    line: '{{host_user}} ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  when: sudo=="nopasswd"

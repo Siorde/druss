@@ -1,0 +1,17 @@
+---
+##################################################################
+# Activation du pavé numérique sur gdm3
+##################################################################
+# On vérifie sur le fichier de configuraiton existe
+- name: check if 01_debian.conf exist
+  file:
+    path:/etc/gdm3/Init/Default
+    state: file
+
+# On active numlockx sur gdm3
+- name: activate numlockx on ligthdm
+  lineinfile:
+    path: /etc/gdm3/Init/Default
+    inserbefore: '^exit 0'
+    regexp: '^Numlock=on'
+    line: '/usr/bin/numlockx on'

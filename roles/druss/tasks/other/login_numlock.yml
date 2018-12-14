@@ -1,0 +1,31 @@
+---
+##################################################################
+# Activation du pavé numérique au login
+##################################################################
+# Récupération du display manager
+- name: get the display manager
+    shell: 'sed 1q /etc/X11/default-display-manager'
+  register: "display_manager"
+
+# Installation du paquet numlockx
+- name: install numlockx package
+  apt:
+    name: numlockx
+    state: present
+    update_cache: yes
+  when: display_manager.stdout is search("ligthdm") or display_manager.stdout is search("sddm") or display_manager.stdout is search("gdm3")
+
+# Si le display manager est lightdm
+- name: activate numlock on lightdm
+  include: lightdm_numlock.yml
+  when: display_manager.stdout is search("ligthdm")
+
+# Si le display manager est sddm
+- name: activate numlock on sddm
+  include: sddm_numlock.yml
+  when: display_manager.stdout is search("sddm")
+
+# Si le display manager est gdm3
+- name: activate numlock on gdm3
+  include: gdm3_numlock.yml
+  when: display_manager.stdout is search("gdm3")

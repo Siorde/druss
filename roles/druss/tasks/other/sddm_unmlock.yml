@@ -1,0 +1,25 @@
+---
+##################################################################
+# Activation du pavé numérique sur sddm
+##################################################################
+# On vérifie sur le fichier de configuraiton existe
+- name: check if sddm.conf exist
+  file:
+    path: /etc/sddm.conf
+    state: file
+
+# On Vérifie si la section où l'on va ajouter l'activation du numlock est présente
+- name: verify if the general section exist
+  lineinfile:
+    path: /etc/sddm.conf
+    regexp: '^[General].*'
+    line: '[General]'
+    state: present
+
+# On active numlockx sur sddm
+- name: activate numlockx in the conf file
+  lineinfile:
+    path: /etc/sddm.conf
+    insertafter: '^[General].*'
+    regexp: '^Numlock=on'
+    line: 'Numlock=on'

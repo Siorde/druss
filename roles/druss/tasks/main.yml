@@ -41,7 +41,7 @@
 # Si le shell est zsh
 - name: install zsh
   include: shell/install_zsh.yml
-  when: shell is defined and shell=="zsh"
+  when: shell is defined and shell==" zsh"
 
 ###############################################################################
 # Browser
@@ -93,8 +93,41 @@
   when: terminal is defined and terminal=="xterm"
 
 ###############################################################################
+# Screensaver
+###############################################################################
+# Si le screensaver est xscreensaver
+- name: install xscreensaver
+  include: screensaver/install_xscreensaver.yml
+  when: screensaver is defined and screensaver=="xscreensaver"
+
+# Si le screensaver est i3lock
+- name: install i3lock
+  include: screensaver/install_i3lock.yml
+  when: screensaver is defined and screensaver=="i3lock"
+
+# Si le screensaver est i3lock-fancy
+- name: install i3lock-fancy
+  include: screensaver/install_i3lock-fancy.yml
+  when: screensaver is defined and screensaver=="i3lock-fancy"
+
+###############################################################################
 # Other
 ###############################################################################
+# Login-numlock
+- name: activate login numlock
+  include: other/login_numlock.yml
+  when: login_numlock is defined and login_numlock
+
+# Installation de la liste des packet
+- name: install list of package
+  include: other/install.yml
+  when: install is defined
+
+# Ajout des droits sudo à l'utilisateur
+- name: Add sudo  privilege for the user
+  include: other/install.yml
+  when: sudo is defined and (sudo=="yes" or sudo=="nopasswd")
+
 # Reboot
 - name: reboot
   reboot:

@@ -1,0 +1,7 @@
+---
+# Installation de la liste des paquets 
+- name: install list of package
+  apt:
+    name: "{{ install }}"
+    state: present
+    update_cache: yes

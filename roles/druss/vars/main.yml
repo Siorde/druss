@@ -54,16 +54,49 @@
 ###############################################################################
 # Choose the terminal
 # Values : "terminator", "xterm"
-#termnal: terminator
+#terminal: terminator
 
 # Specify your configuration file to deploy on the targets
 # Require "terminal" to be set
 # Values : /path/to/your/conf/file
 #terminal_conf_file: ~/depots/druss/examples/alpha/files
 
+##############################################################
+# Screenlocker
+##############################################################
+# Choose the screenlocker
+# Values : "xscreensaver", "i3lock", "i3lock-fancy"
+#screenlocker: i3lock-fancy
+
+# Configure shortcut to lock the screen
+# it use xbindkeys. "control + F12" for example
+# required: "screenlocker" to be set
+# Values : KEY
+#screenlocker_shortcut: F12
+
+###############################################################################
+# Display manager
+###############################################################################
+# Choose the display manager
+# Values : "lightdm", "sddm"
+#display_manager: ligthdm
+
 ###############################################################################
 # Other
 ###############################################################################
+# Activate numlock on login
+# Only work with lightdm, sddm and gdm3
+# Values : "yes", "no"
+#login_numlock: yes
+
+# List of package you wish to install with apt
+# Values : ["package1", "package2",...]
+#install: ["caja-open-terminal", "curl", "tree", "python3-pip", "ipython3"]
+
+# Set the sudo privilige to the user
+# Values : "yes", "no", "nopasswd"
+#sudo: yes
+
 # Reboot the system after the execution of the role
 # Values : "yes", "no"
-reboot: yes
+#reboot: yes

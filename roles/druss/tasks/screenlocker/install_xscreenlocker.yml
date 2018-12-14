@@ -1,0 +1,78 @@
+---
+##################################################################
+# Installation de xscreensaver
+##################################################################
+# Installation du paquet xscreensaver
+- name: install xscreensaver package
+  apt:
+    name: xscreensaver
+    state: present
+    update_cache: yes
+
+# On ajoute le service xscreensaver
+- name: add systemd xscreensaver.service
+  template:
+    src: "xscreensaver.service"
+    dest: "~{{host_user}}/.config/systemd/user/xscreensaver.service"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+
+# On enable le service xscreensaver
+- name: enable xscreensaver.service
+  systemd:
+    name: xscreensaver.service
+    enabled: True
+    user: "{{host_user}}"
+  become: yes
+  become_user: "{{host_user}}"
+
+##################################################################
+# Installation et configuration de xbindkeys
+##################################################################
+# On installe le gestionnaire de raccourcie clavier
+- name: install xbindkeys
+  apt:
+    name: xbindkeys
+    state: present
+    update_cache: yes
+  when: screenlocker_shortcut is defined
+
+# On vérifie sur le fichier de configuration existe
+- name: check if .xbindkeysrc exist
+  file:
+    path: ~{{host_user}}/.xbindkeysrc
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    state: file
+  when: screenlocker_shortcut is defined
+
+# On ajoute la configuration du raccourci
+- name: add the shortcut configuration
+  lineinfile:
+    path: ~{{host_user}}/.xbindkeysrc
+    line: "{{ item }}"
+  when: screenlocker_shortcut is defined
+  loop:
+    - '"/usr/bin/xscreensaver"'
+    - "{{screenlocker_shortcut}}"
+
+# On ajoute le service xbindkeys
+- name: add systemd xbindkeys.service
+  template:
+    src: "xbindkeys.service"
+    dest: "~{{host_user}}/.config/systemd/user/xbindkeys.service"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+  when: screenlocker_shortcut is defined
+
+# On enable le service xbindkeys
+- name: enable xbindkeys.service
+  systemd:
+    name: xbindkeys.service
+    enabled: True
+    user: "{{host_user}}"
+  become: yes
+  become_user: "{{host_user}}"
+  when: screenlocker_shortcut is defined

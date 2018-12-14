@@ -1,0 +1,25 @@
+---
+##################################################################
+# Activation du pavé numérique sur lightdm
+##################################################################
+# On vérifie sur le fichier de configuraiton existe
+- name: check if 01_debian.conf exist
+  file:
+    path: /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+    state: file
+
+# On Vérifie si la section où l'on va ajouter l'activation du numlock est présente
+- name: verify if the seat section exist
+  lineinfile:
+    path: /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+    regexp: '^[Seat:\*].*'
+    line: '[Seat:*]'
+    state: present
+
+# On active numlockx sur lightdm
+- name: activate numlockx in the conf file
+  lineinfile:
+    path: /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+    insertafter: '^[Seat:\*].*'
+    regexp: '^greeter-setup-script=/usr/bin/numlockx on'
+    line: 'greeter-setup-script=/usr/bin/numlockx on'
