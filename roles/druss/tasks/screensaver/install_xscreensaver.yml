@@ -1,20 +1,40 @@
 ---
 ##################################################################
-# Installation de i3lock
+# Installation de xscreensaver
 ##################################################################
-# Installation du paquet i3lock
-- name: install i3lock package
+# Installation du paquet xscreensaver
+- name: install xscreensaver package
   apt:
-    name: i3lock
+    name: xscreensaver
     state: present
     update_cache: yes
 
-# Installation du paquet scrot
-- name: install scrot package
-  apt:
-    name: scrot
-    state: present
-    update_cache: yes
+# On créé le dossier où l'on va mettre le service systemd
+- name: create user systemd directory
+  file:
+    path: "~{{host_user}}/.config/systemd/user"
+    state: directory
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+
+# On ajoute le service xscreensaver
+- name: add systemd xscreensaver.service
+  template:
+    src: "xscreensaver.service"
+    dest: "~{{host_user}}/.config/systemd/user/xscreensaver.service"
+    owner: "{{host_user}}"
+    group: "{{host_user}}"
+    mode : 0744
+
+# On enable le service xscreensaver
+- name: enable xscreensaver.service
+  systemd:
+    name: xscreensaver.service
+    enabled: yes
+    scope: user
+  become: true
+  become_user: "{{ host_user }}"
 
 ##################################################################
 # Installation et configuration de xbindkeys
@@ -25,7 +45,7 @@
     name: xbindkeys
     state: present
     update_cache: yes
-  when: screenlocker_shortcut is defined
+  when: screensaver_shortcut is defined
 
 # On vérifie sur le fichier de configuration existe
 - name: check if .xbindkeysrc exist
@@ -34,17 +54,17 @@
     owner: "{{host_user}}"
     group: "{{host_user}}"
     state: file
-  when: screenlocker_shortcut is defined
+  when: screensaver_shortcut is defined
 
 # On ajoute la configuration du raccourci
 - name: add the shortcut configuration
   lineinfile:
     path: ~{{host_user}}/.xbindkeysrc
     line: "{{ item }}"
-  when: screenlocker_shortcut is defined
+  when: screensaver_shortcut is defined
   loop:
-    - '"/usr/bin/i3lock"'
-    - "{{screenlocker_shortcut}}"
+    - '"/usr/bin/xscreensaver"'
+    - "{{screensaver_shortcut}}"
 
 # On ajoute le service xbindkeys
 - name: add systemd xbindkeys.service
@@ -54,14 +74,14 @@
     owner: "{{host_user}}"
     group: "{{host_user}}"
     mode : 0744
-  when: screenlocker_shortcut is defined
+  when: screensaver_shortcut is defined
 
 # On enable le service xbindkeys
 - name: enable xbindkeys.service
   systemd:
     name: xbindkeys.service
-    enabled: True
-    user: "{{host_user}}"
+    enabled: yes
+    scope: user
   become: yes
   become_user: "{{host_user}}"
-  when: screenlocker_shortcut is defined
+  when: screensaver_shortcut is defined

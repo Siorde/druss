@@ -4,75 +4,75 @@
 ###############################################################################
 # Choose the desktop manager
 # Values : "awesome", "i3", "i3-gaps"
-#desktop_manager: i3-gaps
+desktop_manager: i3-gaps
 
 # Specify your configuration file to deploy on the targets
 # Require "desktop_manager" to be set
 # Values : /path/to/your/conf/file
-#desktop_manager_conf_file: /home/siord/depots/druss/examples/alpha/config
+desktop_manager_conf_file: ~/depots/druss/examples/alpha/i3-gaps
 
 ###############################################################################
 # IDE
 ###############################################################################
 # Choose the IDE
 # Values : "vscode", "atom"
-#ide: atom
+ide: atom
 
 ###############################################################################
 # Shell
 ###############################################################################
 # Choose the shell
 # Values : "oh-my-zsh", "zsh", "bash"
-#shell: bash
+shell: oh-my-zsh
 
 # Specify your configuration file to deploy on the targets
 # Require "shell" to be set
 # Values : /path/to/your/conf/file
-#shell_conf_file: /home/siord/depots/druss/examples/alpha/bashrc
+shell_conf_file: ~/depots/druss/examples/alpha/oh-my-zsh
 
 ###############################################################################
 # Browser
 ###############################################################################
 # Choose the browser
 # Values : "google-chrome", "firefox", "chromium"
-#browser: chromium
+browser: google-chrome
 
 ###############################################################################
 # Text editor
 ###############################################################################
 # Choose the text editor
 # Values : "vim", "emacs", "nano"
-#text_editor: nano
+text_editor: vim
 
 # Specify your configuration file to deploy on the targets
 # Require "text_editor" to be set
 # Values : /path/to/your/conf/file
-#text_editor_conf_file: /home/siord/depots/druss/examples/alpha/nano
+text_editor_conf_file: ~/depots/druss/examples/alpha/vim
 
 ###############################################################################
 # Terminal
 ###############################################################################
 # Choose the terminal
 # Values : "terminator", "xterm"
-#terminal: xterm
+terminal: terminator
 
 # Specify your configuration file to deploy on the targets
 # Require "terminal" to be set
 # Values : /path/to/your/conf/file
-#terminal_conf_file: /home/siord/depots/druss/examples/alpha/xterm
+terminal_conf_file: ~/depots/druss/examples/alpha/terminator
 
 ##############################################################
 # Screensaver
 ##############################################################
 # Choose the screensaver
 # Values : "xscreensaver", "i3lock", "i3lock-fancy"
-screensaver: xscreensaver
+screensaver: i3lock-fancy
 
 # Configure shortcut to lock the screen
 # it use xbindkeys. "control + F12" for example
 # required: "screensaver" to be set
 # Values : KEY
-screensaver_shortcut: F12
+screensaver_shortcut: control + F12
 
 ###############################################################################
 # Display manager
@@ -87,15 +87,15 @@ screensaver_shortcut: F12
 # Activate numlock on login
 # Only work with lightdm, sddm and gdm3
 # Values : "yes", "no"
-#login_numlock: yes
+login_numlock: yes
 
 # List of package you wish to install with apt
 # Values : ["package1", "package2",...]
-#install: ["caja-open-terminal", "curl", "tree", "python3-pip", "ipython3"]
+install: ["caja-open-terminal", "curl", "tree", "python3-pip", "ipython3"]
 
 # Set the sudo privilige to the user
 # Values : "yes", "no", "nopasswd"
-#sudo: nopasswd
+sudo: nopasswd
 
 # Reboot the system after the execution of the role
 # Values : "yes", "no"

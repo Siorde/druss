@@ -9,11 +9,11 @@
     state: present
     update_cache: yes
 
-# On ajoute la configuration de terminator
-- name: Add the terminator configuration file
-  template:
-    src: "config"
-    dest: "~{{host_user}}/.config/.Xresources"
+# On ajoute la configuration de xterm
+- name: Add the xterm configuration file
+  copy:
+    src: "{{ terminal_conf_file }}"
+    dest: "~{{host_user}}/.Xresources"
     owner: "{{host_user}}"
     group: "{{host_user}}"
     mode : 0744

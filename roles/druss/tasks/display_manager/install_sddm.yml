@@ -1,0 +1,28 @@
+---
+###############################################################################
+# Installation de sddm
+###############################################################################
+# Installation du paquet
+- name: install sddm package
+  apt:
+    name: sddm
+    state: present
+    update_cache: yes
+
+# On défini sddm comme display manager
+- name: set sddm as display manager
+  file:
+    path: "/etc/systemd/system/display-manager.service"
+    src: "/lib/systemd/system/sddm.service"
+    state: link
+
+# On défini le boot graphique comme le boot par défaut
+- name: set graphic boot as default boot target
+  file:
+    path: "/etc/systemd/system/default.target"
+    src: "/lib/systemd/system/graphical.target"
+    state: link
+
+# On modifie le fichier de configuration de x11
+- name: change x11 configuration file
+  shell: "echo '/usr/bin/sddm' > /etc/X11/default-display-manager"

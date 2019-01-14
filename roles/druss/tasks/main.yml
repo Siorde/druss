@@ -41,7 +41,12 @@
 # Si le shell est zsh
 - name: install zsh
   include: shell/install_zsh.yml
-  when: shell is defined and shell==" zsh"
+  when: shell is defined and shell=="zsh"
+
+# Si le shell est bash
+- name: install bash
+  include: shell/install_bash.yml
+  when: shell is defined and shell=="bash"
 
 ###############################################################################
 # Browser
@@ -111,6 +116,19 @@
   when: screensaver is defined and screensaver=="i3lock-fancy"
 
 ###############################################################################
+# Display manager
+###############################################################################
+# Si le display manager est lightdm
+- name: install lightdm
+  include: display_manager/install_lightdm.yml
+  when: display_manager is defined and display_manager=="lightdm"
+
+# Si le display manager est sddm
+- name: install sddm
+  include: display_manager/install_sddm.yml
+  when: display_manager is defined and display_manager=="sddm"
+
+###############################################################################
 # Other
 ###############################################################################
 # Login-numlock
@@ -125,8 +143,8 @@
 
 # Ajout des droits sudo à l'utilisateur
 - name: Add sudo  privilege for the user
-  include: other/install.yml
-  when: sudo is defined and (sudo=="yes" or sudo=="nopasswd")
+  include: other/sudo.yml
+  when: sudo is defined and (sudo or sudo=="nopasswd")
 
 # Reboot
 - name: reboot

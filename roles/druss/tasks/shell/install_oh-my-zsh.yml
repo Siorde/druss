@@ -9,6 +9,13 @@
     state: present
     update_cache: yes
 
+# Installation du paquet git
+- name: install git package
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
 # Telechargement du dossier oh-my-zsh
 - name: Cloning oh-my-zsh
   git:

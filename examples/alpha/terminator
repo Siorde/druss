@@ -1,0 +1,21 @@
+[global_config]
+  borderless = True
+  title_font = MesloLGMDZ Nerd Font Mono 9
+  title_use_system_font = False
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    cursor_color = "#aaaaaa"
+    font = MesloLGMDZ Nerd Font Mono 10
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False

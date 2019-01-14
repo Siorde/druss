@@ -6,7 +6,7 @@
 - name: check if sddm.conf exist
   file:
     path: /etc/sddm.conf
-    state: file
+    state: touch
 
 # On Vérifie si la section où l'on va ajouter l'activation du numlock est présente
 - name: verify if the general section exist
