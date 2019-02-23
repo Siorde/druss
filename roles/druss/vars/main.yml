@@ -66,13 +66,13 @@
 ##############################################################
 # Choose the screensaver
 # Values : "xscreensaver", "i3lock", "i3lock-fancy"
-screensaver: xscreensaver
+#screensaver: i3lock-fancy
 
 # Configure shortcut to lock the screen
 # it use xbindkeys. "control + F12" for example
 # required: "screensaver" to be set
 # Values : KEY
-screensaver_shortcut: F12
+#screensaver_shortcut: F12
 
 ###############################################################################
 # Display manager
@@ -99,4 +99,4 @@ screensaver_shortcut: F12
 
 # Reboot the system after the execution of the role
 # Values : "yes", "no"
-reboot: yes
+#reboot: yes

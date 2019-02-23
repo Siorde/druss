@@ -9,32 +9,20 @@
     state: present
     update_cache: yes
 
-# On créé le dossier où l'on va mettre le service systemd
-- name: create user systemd directory
+# On le .xsessionrc s'il n'existe pas
+- name: create .xsessionrc if doesn't exist
   file:
-    path: "~{{host_user}}/.config/systemd/user"
-    state: directory
+    path: "~{{host_user}}/.xsessionrc"
+    state: touch
     owner: "{{host_user}}"
     group: "{{host_user}}"
-    mode : 0744
+    mode : 0755
 
-# On ajoute le service xscreensaver
-- name: add systemd xscreensaver.service
-  template:
-    src: "xscreensaver.service"
-    dest: "~{{host_user}}/.config/systemd/user/xscreensaver.service"
-    owner: "{{host_user}}"
-    group: "{{host_user}}"
-    mode : 0744
-
-# On enable le service xscreensaver
-- name: enable xscreensaver.service
-  systemd:
-    name: xscreensaver.service
-    enabled: yes
-    scope: user
-  become: true
-  become_user: "{{ host_user }}"
+# On ajoute la ligne qui va lancer xscreensaver
+- name: add auto run for xscreensaver
+  lineinfile:
+    path: ~{{host_user}}/.xsessionrc
+    line: "xscreensaver -no-splash &"
 
 ##################################################################
 # Installation et configuration de xbindkeys
@@ -53,7 +41,7 @@
     path: ~{{host_user}}/.xbindkeysrc
     owner: "{{host_user}}"
     group: "{{host_user}}"
-    state: file
+    state: touch
   when: screensaver_shortcut is defined
 
 # On ajoute la configuration du raccourci
@@ -63,25 +51,20 @@
     line: "{{ item }}"
   when: screensaver_shortcut is defined
   loop:
-    - '"/usr/bin/xscreensaver"'
+    - '"/usr/bin/xscreensaver-command -lock"'
     - "{{screensaver_shortcut}}"
 
-# On ajoute le service xbindkeys
-- name: add systemd xbindkeys.service
-  template:
-    src: "xbindkeys.service"
-    dest: "~{{host_user}}/.config/systemd/user/xbindkeys.service"
+# On le .xsessionrc s'il n'existe pas
+- name: create .xsessionrc if doesn't exist
+  file:
+    path: "~{{host_user}}/.xsessionrc"
+    state: touch
     owner: "{{host_user}}"
     group: "{{host_user}}"
-    mode : 0744
-  when: screensaver_shortcut is defined
+    mode : 0755
 
-# On enable le service xbindkeys
-- name: enable xbindkeys.service
-  systemd:
-    name: xbindkeys.service
-    enabled: yes
-    scope: user
-  become: yes
-  become_user: "{{host_user}}"
-  when: screensaver_shortcut is defined
+# On ajoute la ligne qui va lancer xscreensaver
+- name: add auto run for xbinkeys
+  lineinfile:
+    path: ~{{host_user}}/.xsessionrc
+    line: "/usr/bin/xbindkeys"
